@@ -1,0 +1,35 @@
+.navbar {
+  width: 100%;
+  padding: 1.8rem 1rem;
+  box-sizing: border-box;
+  margin-bottom: 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.logo {
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+}
+
+.logo h3 {
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--highlight-color);
+}
+
+.navbar a {
+  color: #333;
+  text-decoration: none;
+  margin-right: 1.8rem;
+}

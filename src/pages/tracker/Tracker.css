@@ -1,0 +1,19 @@
+.tracker-main {
+}
+
+.tracker-main h3 {
+  margin-bottom: 1.8rem;
+}
+
+.tracker-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.tracker-info {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  width: 300px;
+  border-radius: 8px;
+}
