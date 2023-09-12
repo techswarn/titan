@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
-import { projectAuth } from '../firebase/config'
 import { useAuthContext } from './useAuthContext'
+import useAxios from './useAxios';
 
 export const useLogin = () => {
+  const { data, loading, errorResponse, fetchData } = useAxios();
+  console.log(data)
   const [isCancelled, setIsCancelled] = useState(false)
   const [error, setError] = useState(null)
   const [isPending, setIsPending] = useState(false)
@@ -14,11 +16,18 @@ export const useLogin = () => {
   
     try {
       // login
-      const res = await projectAuth.signInWithEmailAndPassword(email, password)
+
+      const req = {
+        email: email,
+        password: password,
+        method: "post"
+      }
+      await fetchData("/users/signin", req)
+      console.log(data)
 
       // dispatch login action
-      dispatch({ type: 'LOGIN', payload: res.user })
-
+      dispatch({ type: 'LOGIN', payload: data })
+      setIsPending(false)
       if (!isCancelled) {
         setIsPending(false)
         setError(null)

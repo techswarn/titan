@@ -46,12 +46,9 @@ export const useSignup = () => {
         throw new Error("Could not complete signup");
       }
 
-      // add display name to user
-      await res.user.updateProfile({ displayName });
-
       // dispatch login action
-      dispatch({ type: "LOGIN", payload: res.user });
-
+      dispatch({ type: "LOGIN", payload: res });
+      setIsPending(false);
       if (!isCancelled) {
         setIsPending(false);
         setError(null);
