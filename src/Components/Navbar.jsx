@@ -1,8 +1,13 @@
+import { useContext } from "react";
+
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { useLogout } from "../../hooks/useLogout";
+import { AuthContext, AuthDispatchContext } from "./../../context/AuthContext";
+
 export default function Navbar() {
-  const {logout, isPending} = useLogout()
+  const { user, authIsReady } = useContext(AuthContext);
+  const { logout, isPending } = useLogout();
   return (
     <div className="navbar">
       <div className="logo">
@@ -24,8 +29,16 @@ export default function Navbar() {
           </li>
         </ul>
       </div>
-      {!isPending && <button className="btn" onClick={logout}>Logout</button>}
-      {isPending && <button className="btn" disabled>Logging Out...</button>}
+      {!isPending && (
+        <button className="btn" onClick={logout}>
+          Logout
+        </button>
+      )}
+      {isPending && (
+        <button className="btn" disabled>
+          Logging Out...
+        </button>
+      )}
     </div>
   );
 }

@@ -1,49 +1,60 @@
-import { useState, useEffect } from 'react'
-import { useAuthContext } from './useAuthContext'
-import useAxios from './useAxios';
+import { useState, useEffect } from "react";
+import { useAuthContext } from "./useAuthContext";
+
+import fetchData from "./../api/fetch";
 
 export const useLogin = () => {
-  const { data, loading, errorResponse, fetchData } = useAxios();
-  console.log(data)
-  const [isCancelled, setIsCancelled] = useState(false)
-  const [error, setError] = useState(null)
-  const [isPending, setIsPending] = useState(false)
-  const { dispatch } = useAuthContext()
+  const [isCancelled, setIsCancelled] = useState(false);
+  const [error, setError] = useState(null);
+  const [isPending, setIsPending] = useState(false);
+  const { dispatch } = useAuthContext();
 
   const login = async (email, password) => {
-    setError(null)
-    setIsPending(true)
-  
-    try {
-      // login
+    setError(null);
+    setIsPending(true);
 
+    try {
       const req = {
         email: email,
         password: password,
-        method: "post"
+        method: "post",
+      };
+      const { response, error } = await fetchData("/users/signin", req);
+      // console.log("response" + response);
+      // console.log(error.response.status);
+      let data = {};
+      if (error?.response?.status === 401) {
+        data = {
+          user: null,
+          authStatus: false,
+          status: 401,
+        };
+        dispatch({ type: "LOGIN", payload: data });
+      } else if (response) {
+        data = {
+          user: response,
+          status: 201,
+          authStatus: true,
+        };
+        dispatch({ type: "LOGIN", payload: data });
       }
-      await fetchData("/users/signin", req)
-      console.log(data)
 
-      // dispatch login action
-      dispatch({ type: 'LOGIN', payload: data })
-      setIsPending(false)
+      setIsPending(false);
       if (!isCancelled) {
-        setIsPending(false)
-        setError(null)
+        setIsPending(false);
+        setError(null);
       }
-    } 
-    catch(err) {
+    } catch (err) {
       if (!isCancelled) {
-        setError(err.message)
-        setIsPending(false)
+        setError(err.message);
+        setIsPending(false);
       }
     }
-  }
+  };
 
   useEffect(() => {
-    return () => setIsCancelled(true)
-  }, [])
+    return () => setIsCancelled(true);
+  }, []);
 
-  return { login, isPending, error }
-}
+  return { login, isPending, error };
+};

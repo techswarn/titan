@@ -1,21 +1,40 @@
-import {useState} from "react"
+import { useState, useContext, useEffect } from "react";
 import { useLogin } from "../../../hooks/useLogin";
+import { useLocalStorage } from "./../../../hooks/useLocalStorage";
+import {
+  AuthContext,
+  AuthDispatchContext,
+} from "./../../../context/AuthContext";
+
 import "./Login.css";
 
-
 export default function Login() {
-  const { login, isPending, error } = useLogin()
+  const { login, isPending, error } = useLogin();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [click, setClick] = useState(false);
+  const state = useContext(AuthContext);
+  console.log(state);
+  const [auth] = useLocalStorage("authIsReady");
+  console.log("local storage value" + auth);
+  console.log(state.user);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    login(email, password);
+    setClick(true);
+  };
 
-  const handleSubmit = (e) =>{
-    e.preventDefault()
-    login(email, password)
-    console.log("submit")
-  }
+  useEffect(() => {
+    console.log("Need redirect");
+  }, [auth]);
 
   return (
     <div>
+      {state.status === 401 ? (
+        <div className="error">Incorrect credentails</div>
+      ) : (
+        ""
+      )}
       <form className="auth-form" onSubmit={handleSubmit}>
         <h2>Login</h2>
         <label>

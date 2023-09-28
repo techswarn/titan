@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 //Set up base back end URL
-//let baseURL = "https://seal-app-lskga.ondigitalocean.app/nodeproject/api/v1/";
-let baseURL = "http://localhost:8000/api/v1/";
+let baseURL = "https://seal-app-lskga.ondigitalocean.app/nodeproject/api/v1/";
+//let baseURL = "http://localhost:8000/api/v1/";
 
 const makeRequest = axios.create({
   baseURL: baseURL,
@@ -18,9 +18,6 @@ const useAxios = () => {
   const [errorResponse, setErrorResponse] = useState(false);
 
   const fetchData = async (url, req) => {
-    console.log(url);
-    console.log(req);
-
     setLoading(true);
     try {
       const response = await makeRequest({
@@ -36,7 +33,7 @@ const useAxios = () => {
       setErrorResponse(err);
     }
   };
-  console.log(data)
+  console.log(data);
   return { data, loading, errorResponse, fetchData };
 };
 

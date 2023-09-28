@@ -4,6 +4,7 @@ import { Calendar } from "react-multi-date-picker"
 
 import {useState} from "react"
 //import "react-calendar/dist/Calendar.css";
+//https://fullcalendar.io/docs/event-model
 //https://blog.logrocket.com/react-calendar-tutorial-build-customize-calendar/
    // <Calendar onChange={setDate} value={date} selectRange={true}/>
 import "./Calendar.css";

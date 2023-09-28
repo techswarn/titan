@@ -13,6 +13,7 @@ export default function Signup() {
   const [passwordcheck, setPasswordcheck] = useState("");
   const [thumbnail, setThumbnail] = useState(null);
   const [thumbnailError, setThumbnailError] = useState("");
+
   const handleChange = (e) => {
     setThumbnail(null);
     const selected = e.target.files[0];

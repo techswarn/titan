@@ -1,18 +1,34 @@
 import { createContext, useReducer, useEffect } from "react";
-import { projectAuth } from "./../src/firebase/config";
-
+import { useLocalStorage } from "./../hooks/useLocalStorage";
 export const AuthContext = createContext();
+export const AuthDispatchContext = createContext();
 
 export const authReducer = (state, action) => {
+  console.log(action.payload);
   switch (action.type) {
     case "LOGIN":
-      console.log(state)
-      console.log(action)
-      return { ...state, user: action.payload };
+      console.log("here");
+      // console.log(action.payload);
+      if (action.payload.authStatus) {
+        return {
+          ...state,
+          user: action.payload.user,
+          status: action.payload.status,
+          authIsReady: true,
+        };
+      } else {
+        return {
+          ...state,
+          user: action.payload.user,
+          status: action.payload.status,
+          authIsReady: false,
+        };
+      }
+
     case "LOGOUT":
-      return { ...state, user: null };
+      return { ...state, user: null, authIsReady: false };
     case "AUTH_IS_READY":
-      return { user: action.payload, authIsReady: true };
+      return { user: action.payload, authIsReady: false };
     default:
       return state;
   }
@@ -21,15 +37,19 @@ export const authReducer = (state, action) => {
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, {
     user: null,
+    status: null,
     authIsReady: false,
   });
-
+  const [auth, setAuth] = useLocalStorage("authIsReady", null);
+  console.log(state.authIsReady);
   useEffect(() => {
-    const unsub = projectAuth.onAuthStateChanged((user) => {
-      dispatch({ type: "AUTH_IS_READY", payload: user });
-      unsub();
-    });
-  }, []);
+    if (state.authIsReady) {
+      setAuth(true);
+    } else if (!state.authIsReady) {
+      console.log("problem");
+      setAuth(false);
+    }
+  }, [state]);
 
   console.log("AuthContext state:", state);
 
