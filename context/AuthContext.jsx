@@ -7,8 +7,6 @@ export const authReducer = (state, action) => {
   console.log(action.payload);
   switch (action.type) {
     case "LOGIN":
-      console.log("here");
-      // console.log(action.payload);
       if (action.payload.authStatus) {
         return {
           ...state,
@@ -41,7 +39,7 @@ export const AuthContextProvider = ({ children }) => {
     authIsReady: false,
   });
   const [auth, setAuth] = useLocalStorage("authIsReady", null);
-  console.log(state.authIsReady);
+
   useEffect(() => {
     if (state.authIsReady) {
       setAuth(true);

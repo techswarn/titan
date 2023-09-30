@@ -1,6 +1,8 @@
 import { useState, useContext, useEffect } from "react";
 import { useLogin } from "../../../hooks/useLogin";
+import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "./../../../hooks/useLocalStorage";
+
 import {
   AuthContext,
   AuthDispatchContext,
@@ -14,6 +16,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [click, setClick] = useState(false);
   const state = useContext(AuthContext);
+  const navigate = useNavigate();
   console.log(state);
   const [auth] = useLocalStorage("authIsReady");
   console.log("local storage value" + auth);
@@ -25,12 +28,15 @@ export default function Login() {
   };
 
   useEffect(() => {
-    console.log("Need redirect");
-  }, [auth]);
+    console.log("Auth is ready: " + JSON.stringify(state.authIsReady));
+    if (state?.authIsReady) {
+      navigate("/");
+    }
+  }, [state]);
 
   return (
     <div>
-      {state.status === 401 ? (
+      {state.status === false ? (
         <div className="error">Incorrect credentails</div>
       ) : (
         ""

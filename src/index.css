@@ -50,6 +50,10 @@ ul {
   background-color: var(--primary-color);
 }
 
+.btn-none {
+  display: none;
+}
+
 /* forms */
 label {
   display: block;

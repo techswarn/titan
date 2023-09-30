@@ -23,17 +23,17 @@ export const useLogin = () => {
       // console.log("response" + response);
       // console.log(error.response.status);
       let data = {};
-      if (error?.response?.status === 401) {
+      if (error?.response?.status === 401 || error?.response?.status === 500) {
         data = {
           user: null,
           authStatus: false,
-          status: 401,
+          status: false,
         };
         dispatch({ type: "LOGIN", payload: data });
       } else if (response) {
         data = {
           user: response,
-          status: 201,
+          status: true,
           authStatus: true,
         };
         dispatch({ type: "LOGIN", payload: data });
