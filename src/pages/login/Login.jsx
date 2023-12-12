@@ -3,6 +3,8 @@ import { useLogin } from "../../../hooks/useLogin";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "./../../../hooks/useLocalStorage";
 
+import Cookies from "js-cookie";
+
 import {
   AuthContext,
   AuthDispatchContext,
@@ -21,6 +23,17 @@ export default function Login() {
   const [auth] = useLocalStorage("authIsReady");
   console.log("local storage value" + auth);
   console.log(state.user);
+
+  const checkLogin = () => {
+    console.log("checklogin");
+    const token = Cookies.get("token");
+    console.log(token);
+  };
+
+  useEffect(() => {
+    checkLogin();
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     login(email, password);

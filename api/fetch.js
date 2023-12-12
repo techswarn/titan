@@ -1,15 +1,13 @@
 import axios from "axios";
 
 //Set up base back end URL
-let baseURL = "https://seal-app-lskga.ondigitalocean.app/nodeproject/api/v1/";
-//let baseURL = "http://localhost:8000/api/v1/";
-let funcURL =
-  "https://faas-blr1-8177d592.doserverless.co/api/v1/web/fn-0b0f94ea-326e-434f-a6db-e297bf02f150";
+let baseURL = "http://127.0.0.1:3000/api/v1/";
 
 const makeRequest = axios.create({
-  baseURL: funcURL,
+  baseURL: baseURL,
   headers: {
     "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
   },
 });
 

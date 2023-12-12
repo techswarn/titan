@@ -1,5 +1,7 @@
 import { createContext, useReducer, useEffect } from "react";
 import { useLocalStorage } from "./../hooks/useLocalStorage";
+import Cookies from "js-cookie";
+
 export const AuthContext = createContext();
 export const AuthDispatchContext = createContext();
 
@@ -8,6 +10,9 @@ export const authReducer = (state, action) => {
   switch (action.type) {
     case "LOGIN":
       if (action.payload.authStatus) {
+        //Not sure if this is the right place to set cookie
+        console.log("checking here" + action.payload.user.data.Data);
+        Cookies.set("token", action.payload.user.data.Data);
         return {
           ...state,
           user: action.payload.user,
