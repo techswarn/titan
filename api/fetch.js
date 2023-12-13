@@ -3,12 +3,12 @@ import axios from "axios";
 //Set up base back end URL
 let baseURL = "http://127.0.0.1:3000/api/v1/";
 
+// let reqHeaders = {
+//   Authorization:
+// };
+
 const makeRequest = axios.create({
   baseURL: baseURL,
-  headers: {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-  },
 });
 
 const fetchData = async (url, req) => {
@@ -19,6 +19,11 @@ const fetchData = async (url, req) => {
       url: url,
       method: req.method,
       data: req,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        Authorization: req?.token,
+      },
     });
   } catch (err) {
     error = err;

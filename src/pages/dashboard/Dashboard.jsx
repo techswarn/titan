@@ -1,12 +1,16 @@
-import { useContext, useEffect } from "react";
-
+import { useEffect } from "react";
+import fetchData from "./../../../api/fetch";
 import {
-  AuthContext,
-  AuthDispatchContext,
-} from "./../../../context/AuthContext";
+  useUserContext,
+  useUserDispatch,
+} from "./../../../context/UserContext";
 import "./Dashboard.css";
 
 export default function Dashboard() {
+  const user = useUserContext();
+  const dispatch = useUserDispatch();
+
+  console.log("User details from state" + user);
   return (
     <div>
       <h1>Your not logged in, please sign in</h1>

@@ -19,20 +19,8 @@ export default function Login() {
   const [click, setClick] = useState(false);
   const state = useContext(AuthContext);
   const navigate = useNavigate();
-  console.log(state);
+
   const [auth] = useLocalStorage("authIsReady");
-  console.log("local storage value" + auth);
-  console.log(state.user);
-
-  const checkLogin = () => {
-    console.log("checklogin");
-    const token = Cookies.get("token");
-    console.log(token);
-  };
-
-  useEffect(() => {
-    checkLogin();
-  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();

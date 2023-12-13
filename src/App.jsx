@@ -1,12 +1,5 @@
 import "./App.css";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 //Imports pages
 import Dashboard from "./pages/dashboard/Dashboard";
@@ -19,33 +12,36 @@ import Sidebar from "./Components/Sidebar";
 import { ProtectedRoute } from "./Components/ProtectedRoute";
 
 import { AuthContextProvider } from "../context/AuthContext";
+import { UserContextProvider } from "../context/UserContext";
 
 function App() {
   return (
     <>
       <AuthContextProvider>
-        <div className="App">
-          <BrowserRouter>
-            <Sidebar />
-            <div className="container">
-              <Navbar />
-              <Routes>
-                <Route
-                  path="/"
-                  element={
-                    <ProtectedRoute>
-                      <Dashboard />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route path="/projects/:id" element={<Project />} />
-                <Route path="/ptotracker" element={<Tracker />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
-              </Routes>
-            </div>
-          </BrowserRouter>
-        </div>
+        <UserContextProvider>
+          <div className="App">
+            <BrowserRouter>
+              <Sidebar />
+              <div className="container">
+                <Navbar />
+                <Routes>
+                  <Route
+                    path="/"
+                    element={
+                      <ProtectedRoute>
+                        <Dashboard />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route path="/projects/:id" element={<Project />} />
+                  <Route path="/ptotracker" element={<Tracker />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/signup" element={<Signup />} />
+                </Routes>
+              </div>
+            </BrowserRouter>
+          </div>
+        </UserContextProvider>
       </AuthContextProvider>
     </>
   );

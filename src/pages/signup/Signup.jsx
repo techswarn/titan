@@ -18,13 +18,10 @@ export default function Signup() {
     setThumbnail(null);
     const selected = e.target.files[0];
     if (!selected) {
-      console.log("Image not selected");
       setThumbnailError("Image not selected");
       return;
     }
-    console.log(selected.type);
     if (!selected.type.includes("image")) {
-      console.log("File selected is not a image");
       setThumbnailError("File selected is not a image");
       return;
     }
