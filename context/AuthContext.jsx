@@ -29,6 +29,8 @@ export const authReducer = (state, action) => {
       }
 
     case "LOGOUT":
+      Cookies.remove("token");
+
       return { ...state, user: null, authIsReady: false };
     case "AUTH_IS_READY":
       return { user: action.payload, authIsReady: true };

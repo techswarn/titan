@@ -2,16 +2,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 //Set up base back end URL
-let baseURL = "https://seal-app-lskga.ondigitalocean.app/nodeproject/api/v1/";
-let funcURL =
-  "https://faas-blr1-8177d592.doserverless.co/api/v1/web/fn-0b0f94ea-326e-434f-a6db-e297bf02f150/dbaccess/getquery";
-//let baseURL = "http://localhost:8000/api/v1/";
+//let baseURL = "http://127.0.0.1:3000/api/v1/";
+let baseAppURL = "https://go-app-o4nsx.ondigitalocean.app/api/v1/";
 
 const makeRequest = axios.create({
-  baseURL: funcURL,
-  headers: {
-    "Content-Type": "application/json",
-  },
+  baseURL: baseAppURL,
 });
 
 const useAxios = () => {
@@ -21,11 +16,19 @@ const useAxios = () => {
 
   const fetchData = async (url, req) => {
     setLoading(true);
+    let response;
+    let error;
+
     try {
-      const response = await makeRequest({
+      response = await makeRequest({
         url: url,
         method: req.method,
         data: req,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: req?.token,
+        },
       });
 
       setData(response);
@@ -35,7 +38,7 @@ const useAxios = () => {
       setErrorResponse(err);
     }
   };
-  console.log(data);
+
   return { data, loading, errorResponse, fetchData };
 };
 

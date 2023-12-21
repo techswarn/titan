@@ -1,49 +1,28 @@
-import { useContext, useEffect, useState } from "react";
-
+import { useEffect, useState, useContext } from "react";
 import { Navigate } from "react-router-dom";
-import { AuthContext } from "./../../context/AuthContext";
+
 import { useLocalStorage } from "./../../hooks/useLocalStorage";
-import Dashboard from "../pages/dashboard/Dashboard";
-import fetchData from "../../api/fetch";
-import Cookies from "js-cookie";
-import { useLogin } from "../../hooks/useLogin";
-import { useAuthContext } from "../../hooks/useAuthContext";
+import { useCheckAuth } from "../../hooks/useCheckAuth.jsx";
+import { AuthContext, AuthDispatchContext } from "./../../context/AuthContext";
 
 export const ProtectedRoute = ({ children }) => {
-  const { login, isPending, error } = useLogin();
-  const { dispatch } = useAuthContext();
   const [auth] = useLocalStorage("authIsReady");
+  const state = useContext(AuthContext);
+  const { checkAuth, loading, error } = useCheckAuth();
 
   useEffect(() => {
-    checkAuth();
+    isAuth();
   }, []);
 
-  const checkAuth = async () => {
+  const isAuth = async () => {
     // Hit /checkauth endpoint and see if the token is valid
-    const auth = Cookies.get("token");
-    const token = `Bearer ${auth}`;
-    console.log(token);
-    const req = {
-      method: "post",
-      token: token,
-    };
-    const { response } = await fetchData("/checkauth", req);
-
-    console.log(response);
-    if (response?.data?.success) {
-      console.log(response?.data?.success);
-      const data = {
-        user: response,
-        status: true,
-        authStatus: true,
-      };
-      dispatch({ type: "AUTH_IS_READY", payload: data });
-    }
+    checkAuth();
   };
 
   if (!auth) {
     // user is not authenticated
-    return <Navigate to="/Login" />;
+    return <Navigate to="/login" />;
   }
+
   return children;
 };

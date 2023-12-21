@@ -4,15 +4,18 @@ import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { useLogout } from "../../hooks/useLogout";
 import { AuthContext, AuthDispatchContext } from "./../../context/AuthContext";
+import { useLocalStorage } from "./../../hooks/useLocalStorage";
 
 export default function Navbar() {
   const state = useContext(AuthContext);
   const { logout, isPending } = useLogout();
   const navigate = useNavigate();
+  const [auth] = useLocalStorage("authIsReady");
   useEffect(() => {
-    if (!state.authIsReady) navigate("/login");
+    if (!auth && !state.authIsReady) navigate("/login");
   }, [state]);
-
+  console.log("auth" + auth);
+  console.log("auth is ready" + state.authIsReady);
   return (
     <div className="navbar">
       <div className="logo">
@@ -34,9 +37,10 @@ export default function Navbar() {
           </li>
         </ul>
       </div>
+
       {!isPending && (
         <button
-          className={!state.authIsReady ? "btn-none" : "btn"}
+          className={!state.authIsReady && !auth ? "btn-none" : "btn"}
           onClick={logout}
         >
           Logout

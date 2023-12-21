@@ -14,19 +14,15 @@ export const useLogout = () => {
   const logout = async () => {
     setError(null);
     setIsPending(true);
-    console.log("Log out called");
+
     try {
       // sign the user out
       const req = { method: "get" };
       const res = await fetchData("/users/logout", req);
-      console.log(res);
-      console.log("---------Before set false---------");
-      // setUser(false);
-      console.log("---------Before set false---------");
-      console.log(user);
 
       // dispatch logout action
       dispatch({ type: "LOGOUT" });
+
       setIsPending(false);
       // update state
       if (!isCancelled) {
