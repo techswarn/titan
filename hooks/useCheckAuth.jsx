@@ -19,7 +19,7 @@ export const useCheckAuth = () => {
       token: token,
     };
     const { response } = await fetchData("/checkauth", req);
-
+    console.log(response);
     if (response?.data?.success) {
       const data = {
         user: response,

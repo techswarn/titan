@@ -26,13 +26,15 @@ export const useLogin = () => {
       if (error?.response?.status === 401 || error?.response?.status === 500) {
         data = {
           user: null,
+          token: null,
           authStatus: false,
           status: false,
         };
         dispatch({ type: "LOGIN", payload: data });
       } else if (response) {
         data = {
-          user: response,
+          user: response?.data?.Data?.User,
+          token: response?.data?.Data?.Token,
           status: true,
           authStatus: true,
         };

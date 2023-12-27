@@ -11,11 +11,12 @@ export const authReducer = (state, action) => {
     case "LOGIN":
       if (action.payload.authStatus) {
         //Not sure if this is the right place to set cookie
-        console.log(action.payload.user.data.Data);
-        Cookies.set("token", action.payload.user.data.Data.Token);
+        console.log(action.payload);
+        Cookies.set("token", action.payload.token);
         return {
           ...state,
           user: action.payload.user,
+          token: action.payload.user.token,
           status: action.payload.status,
           authIsReady: true,
         };
@@ -23,6 +24,7 @@ export const authReducer = (state, action) => {
         return {
           ...state,
           user: action.payload.user,
+          token: null,
           status: action.payload.status,
           authIsReady: false,
         };
@@ -42,6 +44,7 @@ export const authReducer = (state, action) => {
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, {
     user: null,
+    token: null,
     status: null,
     authIsReady: false,
   });
