@@ -11,8 +11,8 @@ export const authReducer = (state, action) => {
     case "LOGIN":
       if (action.payload.authStatus) {
         //Not sure if this is the right place to set cookie
-        console.log("checking here" + action.payload.user.data.Data);
-        Cookies.set("token", action.payload.user.data.Data);
+        console.log(action.payload.user.data.Data);
+        Cookies.set("token", action.payload.user.data.Data.Token);
         return {
           ...state,
           user: action.payload.user,

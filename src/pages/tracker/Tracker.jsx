@@ -36,10 +36,13 @@ export default function Tracker() {
   };
   return (
     <div className="tracker-main">
-      <h3>PTO tracker</h3>
-      <div className="tracker-container">
-        <form onSubmit={handleSubmit}>
-          <button className="btn">Click here to make request</button>
+      <h2 className="heading-center">Bugs & blogs</h2>
+
+      <div className="heading-center">
+        <form onSubmit={handleSubmit} className="">
+          <div>
+            <input className="single-field" type="text" name="" id="" />
+          </div>
         </form>
         <div className="list">
           <ul></ul>

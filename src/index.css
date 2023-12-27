@@ -84,3 +84,17 @@ textarea {
   padding: 8px;
   margin: 10px 0;
 }
+
+.heading-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+
+.single-field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+}

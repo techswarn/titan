@@ -2,14 +2,14 @@ import axios from "axios";
 
 //Set up base back end URL
 //let baseURL = "http://127.0.0.1:3000/api/v1/";
-let baseAppURL = "https://go-app-o4nsx.ondigitalocean.app/api/v1/";
+let baseURL = "https://seashell-app-ybtvg.ondigitalocean.app/api/v1/";
 
 // let reqHeaders = {
 //   Authorization:
 // };
 
 const makeRequest = axios.create({
-  baseURL: baseAppURL,
+  baseURL: baseURL,
 });
 
 const fetchData = async (url, req) => {
