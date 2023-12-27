@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: titan
+  name: titan
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: titan
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: titan
+    spec:
+      containers:
+        - image: swarntech/titan:latest
+          name: titan
+          ports:
+            - containerPort: 3000
+          resources: {}
+status: {}

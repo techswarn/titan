@@ -35,19 +35,25 @@ export default function Tracker() {
     setNames(data.response.data);
   };
   return (
-    <div className="tracker-main">
-      <h2 className="heading-center">Bugs & blogs</h2>
+    <>
+      {!auth && !state.authIsReady ? (
+        <></>
+      ) : (
+        <div className="tracker-main">
+          <h2 className="heading-center">Bugs & blogs</h2>
 
-      <div className="heading-center">
-        <form onSubmit={handleSubmit} className="">
-          <div>
-            <input className="single-field" type="text" name="" id="" />
+          <div className="heading-center">
+            <form onSubmit={handleSubmit} className="">
+              <div>
+                <input className="single-field" type="text" name="" id="" />
+              </div>
+            </form>
+            <div className="list">
+              <ul></ul>
+            </div>
           </div>
-        </form>
-        <div className="list">
-          <ul></ul>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }

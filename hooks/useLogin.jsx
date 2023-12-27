@@ -20,8 +20,7 @@ export const useLogin = () => {
         method: "post",
       };
       const { response, error } = await fetchData("/login", req);
-      console.log("response" + response.data.Data);
-      // console.log(error.response.status);
+
       let data = {};
       if (error?.response?.status === 401 || error?.response?.status === 500) {
         data = {

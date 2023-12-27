@@ -11,7 +11,6 @@ export const authReducer = (state, action) => {
     case "LOGIN":
       if (action.payload.authStatus) {
         //Not sure if this is the right place to set cookie
-        console.log(action.payload);
         Cookies.set("token", action.payload.token);
         return {
           ...state,
@@ -54,7 +53,6 @@ export const AuthContextProvider = ({ children }) => {
     if (state.authIsReady) {
       setAuth(true);
     } else if (!state.authIsReady) {
-      console.log("problem");
       setAuth(false);
     }
   }, [state]);

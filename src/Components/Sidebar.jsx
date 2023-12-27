@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "./../../context/AuthContext";
 
 import dashboardIcon from "./../assets/dashboard_icon.svg";
@@ -7,15 +7,18 @@ import addIcon from "./../assets/add_icon.svg";
 import "./Sidebar.css";
 
 export default function Sidebar() {
+  const [name, setName] = useState();
   const state = useContext(AuthContext);
-  console.log(state?.user?.user?.data?.Data?.FirstName);
+  useEffect(() => {
+    setName(state?.user?.user?.FirstName);
+  }, [state]);
   return (
     <div className="sidebar">
       <div className="sidebar-content">
         <div className="user">
           {/*Avatar and user name later*/}
           <p>
-            Hey {state?.user?.user?.data?.Data?.FirstName}!
+            {name ? <>Hey {name}!</> : <></>}
             <span> &#128512;</span>
           </p>
         </div>

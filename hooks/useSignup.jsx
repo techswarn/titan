@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useAuthContext } from "./useAuthContext";
-import { projectAuth } from "./../src/firebase/config";
 
 import useAxios from "./useAxios";
 import fetchData from "./../api/fetch";
@@ -31,18 +30,14 @@ export const useSignup = () => {
         passwordConfirm: confirmpassword,
         email: email,
       };
-      console.log("req" + req);
+
       // const res = await projectAuth.createUserWithEmailAndPassword(
       //   email,
       //   password
       // );
       req.method = "post";
-      console.log("1");
       const response = await fetchData("/users/signup", req);
-      console.log(response);
-      console.log("2");
       const res = response;
-      console.log("Reached here");
 
       if (!res) {
         throw new Error("Could not complete signup");
