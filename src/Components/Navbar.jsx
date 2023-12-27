@@ -10,10 +10,15 @@ export default function Navbar() {
   const state = useContext(AuthContext);
   const { logout, isPending } = useLogout();
   const navigate = useNavigate();
-  const [auth] = useLocalStorage("authIsReady");
+  const [auth, setAuth] = useLocalStorage("authIsReady");
   useEffect(() => {
     if (!auth && !state.authIsReady) navigate("/login");
   }, [state]);
+
+  const signout = () => {
+    setAuth(false);
+    logout();
+  };
   console.log("auth" + auth);
   console.log("auth is ready" + state.authIsReady);
   return (
@@ -41,7 +46,7 @@ export default function Navbar() {
       {!isPending && (
         <button
           className={!state.authIsReady && !auth ? "btn-none" : "btn"}
-          onClick={logout}
+          onClick={signout}
         >
           Logout
         </button>
