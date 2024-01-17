@@ -14,6 +14,8 @@ import "./Tracker.css";
 
 export default function Tracker() {
   const [search, setSearch] = useState({});
+  const [modelIsOpen, SetModelIsOpen] = useState(false);
+  console.log(modelIsOpen);
   const [blogs, setBlogs] = useState();
   const { data, loading, fetch } = useAxios();
   const state = useContext(AuthContext);
@@ -34,6 +36,10 @@ export default function Tracker() {
     setBlogs(data);
   }, [search]);
 
+  const openModel = () => {
+    SetModelIsOpen(true);
+  };
+
   const getBlog = async () => {
     const req = {
       method: "POST",
@@ -45,6 +51,61 @@ export default function Tracker() {
     fetch("/blog", req);
   };
 
+  const Model = () => {
+    const [subject, setSubject] = useState();
+    const [para, setPara] = useState();
+    console.log("loading" + loading);
+    const closeModal = () => {
+      SetModelIsOpen(false);
+    };
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      const req = {
+        method: "POST",
+        payload: {
+          subject: subject,
+          paragraph: para,
+        },
+      };
+      fetch("/blogs", req);
+    };
+    return (
+      <>
+        <div className="model">
+          <div className="flex-row">
+            <h3>Add blogs</h3>
+            <button className="btn" onClick={closeModal}>
+              x
+            </button>
+          </div>
+          <div className="">
+            <form onSubmit={handleSubmit}>
+              <label>
+                <span>Subject:</span>
+                <input
+                  required
+                  type="text"
+                  onChange={(e) => setSubject(e.target.value)}
+                  value={subject}
+                />
+              </label>
+              <label>
+                <span>Details:</span>
+                <textarea
+                  required
+                  type="textarea"
+                  onChange={(e) => setPara(e.target.value)}
+                />
+              </label>
+              <button className={"btn"}>Submit</button>
+            </form>
+          </div>
+        </div>
+      </>
+    );
+  };
+
   return (
     <>
       {!auth && !state.authIsReady ? (
@@ -53,21 +114,27 @@ export default function Tracker() {
         <div className="tracker-main">
           <h2 className="heading-center">Bugs & blogs</h2>
 
-          <div className="heading-center">
-            <form className="">
-              <div>
-                <input
-                  className="single-field"
-                  type="text"
-                  name=""
-                  id=""
-                  onChange={(e) => setSearch(e.target.value)}
-                />
-              </div>
-            </form>
-          </div>
-          <div className="list">
-            <Blog blogs={blogs} />
+          <button onClick={openModel} className="btn">
+            Add
+          </button>
+          {modelIsOpen ? <Model /> : ""}
+          <div className={modelIsOpen ? "area" : "flex-column"}>
+            <div className="">
+              <form className="">
+                <div>
+                  <input
+                    className="single-field"
+                    type="text"
+                    name=""
+                    id=""
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
+                </div>
+              </form>
+            </div>
+            <div className="list">
+              <Blog blogs={blogs} />
+            </div>
           </div>
         </div>
       )}

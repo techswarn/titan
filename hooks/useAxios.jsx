@@ -12,7 +12,7 @@ const makeRequest = axios.create({
 
 const useAxios = () => {
   const [data, setData] = useState();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [errorResponse, setErrorResponse] = useState(false);
 
   const fetch = async (url, body) => {
