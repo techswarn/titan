@@ -1,14 +1,12 @@
 import React from "react";
 
-const BlogCard = (subject, para) => {
+const BlogCard = ({ subject, para }) => {
+  console.log(subject);
   return (
     <>
       <div className="card-h">
-        <h2>How to clear cache</h2>
-        <div>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat,
-          dicta!
-        </div>
+        <h2>{subject}</h2>
+        <div>{para}</div>
       </div>
     </>
   );

@@ -8,13 +8,14 @@ import { useNavigate } from "react-router-dom";
 import { useCheckAuth } from "./../../../hooks/useCheckAuth";
 import useAxios from "../../../hooks/useAxios";
 import fetchData from "./../../../api/fetch";
-import "./Tracker.css";
 
 import Blog from "./Blog";
+import "./Tracker.css";
 
 export default function Tracker() {
   const [search, setSearch] = useState({});
-  // const { data, loading, fetchData } = useAxios();
+  const [blogs, setBlogs] = useState();
+  const { data, loading, fetch } = useAxios();
   const state = useContext(AuthContext);
   const [auth] = useLocalStorage("authIsReady");
   const navigate = useNavigate();
@@ -23,16 +24,17 @@ export default function Tracker() {
   useEffect(() => {
     checkAuth();
   }, []);
+
   useEffect(() => {
     if (!auth && !state.authIsReady) navigate("/login");
   }, [state]);
 
   useEffect(() => {
-    handleSubmit();
+    getBlog();
+    setBlogs(data);
   }, [search]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const getBlog = async () => {
     const req = {
       method: "POST",
       payload: {
@@ -40,8 +42,7 @@ export default function Tracker() {
         tag: "node",
       },
     };
-    const res = await fetchData("/getBlogs", req);
-    console.log(res);
+    fetch("/blog", req);
   };
 
   return (
@@ -53,7 +54,7 @@ export default function Tracker() {
           <h2 className="heading-center">Bugs & blogs</h2>
 
           <div className="heading-center">
-            <form onSubmit={handleSubmit} className="">
+            <form className="">
               <div>
                 <input
                   className="single-field"
@@ -66,7 +67,7 @@ export default function Tracker() {
             </form>
           </div>
           <div className="list">
-            <Blog />
+            <Blog blogs={blogs} />
           </div>
         </div>
       )}

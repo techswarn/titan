@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import fetchData from "../api/fetch";
 
 //Set up base back end URL
 //let baseURL = "http://127.0.0.1:3000/api/v1/";
@@ -14,24 +15,20 @@ const useAxios = () => {
   const [loading, setLoading] = useState(true);
   const [errorResponse, setErrorResponse] = useState(false);
 
-  const fetchData = async (url, req) => {
+  const fetch = async (url, body) => {
     setLoading(true);
     let response;
     let error;
 
     try {
-      response = await makeRequest({
-        url: url,
-        method: req.method,
-        data: req,
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: req?.token,
-        },
-      });
+      const req = {
+        method: body.method,
+        payload: body.payload,
+      };
+      const res = await fetchData(url, req);
+      console.log(res.response.data.Data);
 
-      setData(response);
+      setData(res.response.data.Data);
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -39,7 +36,7 @@ const useAxios = () => {
     }
   };
 
-  return { data, loading, errorResponse, fetchData };
+  return { data, loading, errorResponse, fetch };
 };
 
 export default useAxios;

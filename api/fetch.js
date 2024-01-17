@@ -1,9 +1,9 @@
 import axios from "axios";
 
 //Set up base back end URL
-//let baseURL = "http://127.0.0.1:3000/api/v1/";
+let baseURL = "http://127.0.0.1:3000/api/v1/";
 //let baseURL = "https://seashell-app-ybtvg.ondigitalocean.app/api/v1/";
-let baseURL = "https://apps.techenv.dev/backend/api/v1/";
+//let baseURL = "https://apps.techenv.dev/backend/api/v1/";
 
 // let reqHeaders = {
 //   Authorization:
@@ -20,7 +20,7 @@ const fetchData = async (url, req) => {
     response = await makeRequest({
       url: url,
       method: req.method,
-      data: req,
+      data: req.payload,
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",

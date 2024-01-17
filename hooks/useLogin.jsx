@@ -15,8 +15,10 @@ export const useLogin = () => {
 
     try {
       const req = {
-        email: email,
-        password: password,
+        payload: {
+          email: email,
+          password: password,
+        },
         method: "post",
       };
       const { response, error } = await fetchData("/login", req);
