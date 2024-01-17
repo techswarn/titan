@@ -33,7 +33,7 @@ export default function Sidebar() {
           </ul>
           <ul>
             <li>
-              <NavLink to="/ptotracker">
+              <NavLink to="/tracker">
                 <img src={addIcon} alt="add icon" />
                 <span>Tracker</span>
               </NavLink>

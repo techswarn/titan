@@ -29,7 +29,7 @@ export default function Navbar() {
       <div>
         <ul className="nav-list">
           <li>
-            <Link to={`ptotracker`}>Tracker</Link>
+            <Link to={`tracker`}>Tracker</Link>
           </li>
           <li>
             <Link to={`login`}>Login</Link>

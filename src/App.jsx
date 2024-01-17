@@ -34,7 +34,7 @@ function App() {
                     }
                   />
                   <Route path="/projects/:id" element={<Project />} />
-                  <Route path="/ptotracker" element={<Tracker />} />
+                  <Route path="/tracker" element={<Tracker />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />
                 </Routes>

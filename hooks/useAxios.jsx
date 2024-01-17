@@ -3,7 +3,7 @@ import axios from "axios";
 
 //Set up base back end URL
 //let baseURL = "http://127.0.0.1:3000/api/v1/";
-let baseAppURL = "https://go-app-o4nsx.ondigitalocean.app/api/v1/";
+let baseAppURL = "https://apps.techenv.dev/backend/api/v1/";
 
 const makeRequest = axios.create({
   baseURL: baseAppURL,
