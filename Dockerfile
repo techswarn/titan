@@ -1,3 +1,4 @@
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 FROM node:alpine as builder
 WORKDIR '/app'
 COPY ./package.json ./
