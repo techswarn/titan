@@ -1,4 +1,5 @@
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS sample
+FROM microsoft/dotnet:8.0-runtime AS base
 FROM node:alpine as builder
 WORKDIR '/app'
 COPY ./package.json ./
