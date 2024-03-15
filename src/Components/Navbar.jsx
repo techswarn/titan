@@ -23,9 +23,7 @@ export default function Navbar() {
   console.log("auth is ready" + state.authIsReady);
   return (
     <div className="navbar">
-      <div className="logo">
-        <h3>Tracker</h3>
-      </div>
+      <div className="logo"></div>
       <div>
         <ul className="nav-list">
           <li>
@@ -39,6 +37,9 @@ export default function Navbar() {
           </li>
           <li>
             <Link to={`projects`}>Projects</Link>
+          </li>
+          <li>
+            <Link to={`portfolio`}>Portfolio</Link>
           </li>
         </ul>
       </div>

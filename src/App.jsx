@@ -13,6 +13,7 @@ import { ProtectedRoute } from "./Components/ProtectedRoute";
 
 import { AuthContextProvider } from "../context/AuthContext";
 import { UserContextProvider } from "../context/UserContext";
+import Portfolio from "./pages/Portfolio/Portfolio";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
                       </ProtectedRoute>
                     }
                   />
+                  <Route path="/portfolio" element={<Portfolio />} />
                   <Route path="/projects/:id" element={<Project />} />
                   <Route path="/tracker" element={<Tracker />} />
                   <Route path="/login" element={<Login />} />
