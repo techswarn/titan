@@ -9,11 +9,11 @@ import Project from "./pages/project/Project";
 import Tracker from "./pages/tracker/Tracker";
 import Navbar from "./Components/Navbar";
 import Sidebar from "./Components/Sidebar";
+import Portfolio from "./pages/Portfolio/Portfolio";
 import { ProtectedRoute } from "./Components/ProtectedRoute";
 
 import { AuthContextProvider } from "../context/AuthContext";
 import { UserContextProvider } from "../context/UserContext";
-import Portfolio from "./pages/Portfolio/Portfolio";
 
 function App() {
   return (
@@ -26,15 +26,15 @@ function App() {
               <div className="container">
                 <Navbar />
                 <Routes>
+                  <Route path="/" element={<Portfolio />} />
                   <Route
-                    path="/"
+                    path="/dash"
                     element={
                       <ProtectedRoute>
                         <Dashboard />
                       </ProtectedRoute>
                     }
                   />
-                  <Route path="/portfolio" element={<Portfolio />} />
                   <Route path="/projects/:id" element={<Project />} />
                   <Route path="/tracker" element={<Tracker />} />
                   <Route path="/login" element={<Login />} />

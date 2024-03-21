@@ -11,9 +11,11 @@ export default function Navbar() {
   const { logout, isPending } = useLogout();
   const navigate = useNavigate();
   const [auth, setAuth] = useLocalStorage("authIsReady");
-  useEffect(() => {
-    if (!auth && !state.authIsReady) navigate("/login");
-  }, [state]);
+
+  //Removed due to Portfolio redirect issuue
+  // useEffect(() => {
+  //   if (!auth && !state.authIsReady) navigate("/login");
+  // }, [state]);
 
   const signout = () => {
     setAuth(false);
@@ -27,6 +29,9 @@ export default function Navbar() {
       <div>
         <ul className="nav-list">
           <li>
+            <Link to={``}>Portfolio</Link>
+          </li>
+          <li>
             <Link to={`tracker`}>Tracker</Link>
           </li>
           <li>
@@ -37,9 +42,6 @@ export default function Navbar() {
           </li>
           <li>
             <Link to={`projects`}>Projects</Link>
-          </li>
-          <li>
-            <Link to={`portfolio`}>Portfolio</Link>
           </li>
         </ul>
       </div>
